@@ -3,23 +3,49 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+
+  constructor() {
+    super();
+
+    this.state = {
+      dollars: 0
+    };
+  }
+
+  shouldComponentUpdate(props, state) {
+    return state.dollars % 10 === 0;
+  }
+
+  handleOnChange = e => {
+    this.setState({
+      dollars: Number(e.target.value || 0)
+    });
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+      <div className="Coins">
+        <h1>Buy Crypto Coins!</h1>
+
+        <div className="question">
+          <p>How much dollars do you have?</p>
+
           <p>
-            Edit <code>src/App.js</code> and save to reload.
+            <input
+              placeholder="0"
+              onChange={this.handleOnChange}
+              type="text"
+            />
           </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        </div>
+
+        <div className="answer">
+          <p>Crypto Coin price: $10</p>
+          <p>
+            You can buy <strong>{this.state.dollars / 10}</strong>
+            coins.
+          </p>
+        </div>
       </div>
     );
   }
